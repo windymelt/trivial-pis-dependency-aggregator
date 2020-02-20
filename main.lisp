@@ -16,6 +16,7 @@
           (mapcar #'pathname-name
                   (uiop:directory-files
                    (merge-pathnames (pathname (format nil "~A/" (string-downcase (subseq (symbol-name name) (1+ (position #\/ (symbol-name name) :from-end t)))))) (trivial-pis-dependency-aggregator::dependency-source-dir))))))
+    (format t "TRIVIAL-PIS-DEPENDENCY-AGGREGATOR: depending on ~{~A~^, ~}~%" file-names-without-ext)
     `(defpackage ,name
        (:use :cl)
        ,@(mapcar #'(lambda (f) (list :import-from (make-keyword (string-upcase (format nil "~A/~A" name f))))) file-names-without-ext))))
